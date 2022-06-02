@@ -13,7 +13,7 @@ import java.util.List;
 public class IngredientViewModel extends AndroidViewModel {
     private IngredientRepository mRepository;
 
-    private final LiveData<List<Ingredient>> mAllIngredients;
+    private final List<Ingredient> mAllIngredients;
 
     public IngredientViewModel (Application application) {
         super(application);
@@ -21,7 +21,7 @@ public class IngredientViewModel extends AndroidViewModel {
         mAllIngredients = mRepository.getAllIngredients();
     }
 
-    LiveData<List<Ingredient>> getAllIngredients() { return mAllIngredients; }
+    List<Ingredient> getAllIngredients() { return mAllIngredients; }
 
     public void insert(Ingredient ingredient) { mRepository.insert(ingredient); }
 }

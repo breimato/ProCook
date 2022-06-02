@@ -7,15 +7,38 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "ingredient_table")
 public class Ingredient {
-    @PrimaryKey
-    @NonNull
-    @ColumnInfo(name = "ingredient")
-    private String mIngredient;
 
-    public Ingredient(@NonNull String ingredient) {
-        this.mIngredient = ingredient;
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name = "id")
+    private Long id;
+
+    @ColumnInfo(name = "name")
+    private String name;
+
+
+    public Ingredient() {
+
     }
-    public String getIngredient(){
-        return this.mIngredient;
+    public Ingredient(String name) {
+        this.name = name;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(@NonNull Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIngredient(){return "asdf"; };
 }

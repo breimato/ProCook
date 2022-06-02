@@ -11,11 +11,12 @@ import java.util.List;
 @Dao
 public interface IngredientDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(Ingredient ingredient);
+    void insert(Ingredient... ingredients);
+
 
     @Query("DELETE FROM ingredient_table")
     void deleteAll();
 
-    @Query("SELECT * FROM ingredient_table ORDER BY ingredient ASC")
-    LiveData<List<Ingredient>> getAlphabetizedIngredients();
+    @Query("SELECT * FROM ingredient_table ORDER BY name ASC")
+    List<Ingredient> getAlphabetizedIngredients();
 }

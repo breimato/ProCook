@@ -8,21 +8,22 @@ import java.util.List;
 
 public class IngredientRepository {
     private IngredientDao mIngredientDao;
-    private LiveData<List<Ingredient>> mAllIngredients;
+    private List<Ingredient> mAllIngredients;
 
     // Note that in order to unit test the IngredientRepository, you have to remove the Application
     // dependency. This adds complexity and much more code, and this sample is not about testing.
     // See the BasicSample in the android-architecture-components repository at
     // https://github.com/googlesamples
     public IngredientRepository(Application application) {
+
         IngredientRoomDatabase db = IngredientRoomDatabase.getDatabase(application);
-        mIngredientDao = db.ingredientDao();
-        mAllIngredients = mIngredientDao.getAlphabetizedIngredients();
+
+        mAllIngredients = db.ingredientDao().getAlphabetizedIngredients();
     }
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    public LiveData<List<Ingredient>> getAllIngredients() {
+    public List<Ingredient> getAllIngredients() {
         return mAllIngredients;
     }
 

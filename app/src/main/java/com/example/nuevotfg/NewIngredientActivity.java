@@ -42,8 +42,8 @@ public class NewIngredientActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == NEW_INGREDIENT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Ingredient ingredient = new Ingredient(data.getStringExtra(NewIngredientActivity.EXTRA_REPLY));
-            mIngredientViewModel.insert(ingredient);
+//            Ingredient ingredient = new Ingredient(data.getStringExtra(NewIngredientActivity.EXTRA_REPLY));
+//            mIngredientViewModel.insert(ingredient);
         } else {
             Toast.makeText(
                     getApplicationContext(),
