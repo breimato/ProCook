@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">AppTFC</string>
+    <string name="appName">ProCook</string>
+    <string name="login">LOGIN</string>
+    <string name="type_password">Type Password</string>
+    <string name="type_email">Type Email</string>
+    <string name="reg_strate_ahora">Regístrate ahora</string>
+    <string name="no_tienes_una_cuenta">¿No tienes una cuenta?</string>
+    <string name="underline_button">
+        <u>Regístrate ahora</u>
+    </string>
+    <string name="register">Registrarse</string>
+    <string name="lastnameHint">Type your lastname</string>
+    <string name="nameHint">Type your name</string>
+    <string name="emailHint">Type your email</string>
+    <string name="phoneHint">Type your phone number</string>
+    <string name="phoneTextView">Phone Number</string>
+    <string name="lastnameTextView">Lastname</string>
+    <string name="nameTextView">Name</string>
+    <string name="e_mailTextView">E-Mail</string>
+    <string name="passwordTextView">Password</string>
+    <string name="hi">Hi</string>
+    <string name="hint_ingredient">Ingredient...</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Word not saved because it is empty.</string>
+</resources>

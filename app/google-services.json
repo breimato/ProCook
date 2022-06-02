@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1058605582148",
+    "project_id": "nuevo-tfg",
+    "storage_bucket": "nuevo-tfg.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058605582148:android:24d3c97f5e694aaeed3911",
+        "android_client_info": {
+          "package_name": "com.example.nuevotfg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058605582148-8b5stnmlhs1ht8l6mke2ap1rkdqaku4m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmuQwPxceqXk99-l_BkeYXqBs0ZS_vCVI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058605582148-8b5stnmlhs1ht8l6mke2ap1rkdqaku4m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
