@@ -19,8 +19,4 @@
     <string name="nameTextView">Name</string>
     <string name="e_mailTextView">E-Mail</string>
     <string name="passwordTextView">Password</string>
-    <string name="hi">Hi</string>
-    <string name="hint_ingredient">Ingredient...</string>
-    <string name="button_save">Save</string>
-    <string name="empty_not_saved">Word not saved because it is empty.</string>
 </resources>

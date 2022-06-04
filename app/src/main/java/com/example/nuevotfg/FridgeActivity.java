@@ -1,61 +1,81 @@
 package com.example.nuevotfg;
 
-import android.content.Intent;
-import android.os.Build;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-
-import com.example.nuevotfg.db.Ingredient;
-import com.example.nuevotfg.db.IngredientRoomDatabase;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.List;
 
 public class FridgeActivity extends AppCompatActivity {
 
-    public static final int NEW_INGREDIENT_ACTIVITY_REQUEST_CODE = 1;
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    EditText name;
+    Button insertButton, deleteButton, selectButton;
+    DBHelper DB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fridge_main);
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        setContentView(R.layout.activity_fridge);
 
-        final IngredientListAdapter adapter = new IngredientListAdapter(new IngredientListAdapter.IngredientDiff());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        IngredientViewModel mIngredientViewModel = new ViewModelProvider(this).get(IngredientViewModel.class);
-        List<Ingredient> listaIng = mIngredientViewModel.getAllIngredients();
-        adapter.submitList(listaIng);
+        name = findViewById(R.id.ingredientName);
+        insertButton = findViewById(R.id.insertButton);
+        deleteButton = findViewById(R.id.deleteButton);
+        selectButton = findViewById(R.id.viewButton);
+        DB = new DBHelper(this);
 
+        insertButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nameString = name.getText().toString();
 
-            IngredientRoomDatabase db = IngredientRoomDatabase.getDatabase(this.getApplicationContext());
-            Ingredient ing1 = new Ingredient();
-            ing1.setName("calabacin");
-            Ingredient ing2 =new Ingredient();
-            ing2.setName("ajo");
-            Ingredient ing3 = new Ingredient();
-            ing3.setName("cebolla");
-
-            db.ingredientDao().insert(ing1,ing2,ing3);
-
-
-            List<Ingredient> listaIngredientes = db.ingredientDao().getAlphabetizedIngredients();
-            db.close();
-
-            System.out.println("lista ingredientes"+listaIngredientes);
-
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener( view -> {
-            Intent intent = new Intent(FridgeActivity.this, NewIngredientActivity.class);
-            startActivityForResult(intent, NEW_INGREDIENT_ACTIVITY_REQUEST_CODE);
+                boolean checkInsertData = DB.insertIngredient(nameString);
+                if (checkInsertData) {
+                    Toast.makeText(FridgeActivity.this, "Ingrediente añadido", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(FridgeActivity.this, "El ingrediente no se ha podido añadir", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nameString = name.getText().toString();
+
+                boolean checkDeleteData = DB.deleteIngredient(nameString);
+                if (checkDeleteData) {
+                    Toast.makeText(FridgeActivity.this, "Ingrediente eliminado", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(FridgeActivity.this, "El ingrediente no se ha podido eliminar", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        selectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Cursor res = DB.viewIngredient();
+                if (res.getCount() == 0) {
+                    Toast.makeText(FridgeActivity.this, "No hay ingredientes", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                StringBuilder buffer = new StringBuilder();
+                while (res.moveToNext()) {
+                    buffer.append("ID: ").append(res.getString(0)).append("/n");
+                    buffer.append("Name: ").append(res.getString(1)).append("/n/n");
+                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(FridgeActivity.this);
+                builder.setCancelable(true);
+                builder.setTitle("INGREDIENTES");
+                builder.setMessage(buffer.toString());
+                builder.show();
+            }
+        });
+
     }
 }
