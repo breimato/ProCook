@@ -1,6 +1,8 @@
 package com.example.nuevotfg;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,21 +24,31 @@ public class Register extends AppCompatActivity {
     EditText passText;
     Button registerButton;
     FirebaseAuth mAuth;
+    DBHelper DB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
         mAuth = FirebaseAuth.getInstance();
+        DB = new DBHelper(this);
         registerButton = findViewById(R.id.buttonRegisterView);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createUser();
+                userToDatabase();
             }
         });
     }
 
+    private void userToDatabase(){
+        emailText = findViewById(R.id.emailBox);
+        passText = findViewById(R.id.passwordTextBox);
+        String email = emailText.getText().toString();
+        String pass = passText.getText().toString();
+
+        DB.insertUser(email, pass);
+    }
     private void createUser(){
         emailText = findViewById(R.id.emailBox);
         passText = findViewById(R.id.passwordTextBox);

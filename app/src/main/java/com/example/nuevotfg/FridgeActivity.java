@@ -1,5 +1,6 @@
 package com.example.nuevotfg;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class FridgeActivity extends AppCompatActivity {
 
+    public static final String KEY_FOR_INTENT = "1";
     EditText name;
     Button insertButton, deleteButton, selectButton;
     DBHelper DB;
@@ -20,7 +22,8 @@ public class FridgeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fridge);
-
+        Intent intent = getIntent();
+        String session_id = intent.getStringExtra(KEY_FOR_INTENT);
         name = findViewById(R.id.ingredientName);
         insertButton = findViewById(R.id.insertButton);
         deleteButton = findViewById(R.id.deleteButton);
@@ -32,11 +35,13 @@ public class FridgeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String nameString = name.getText().toString();
 
-                boolean checkInsertData = DB.insertIngredient(nameString);
+                boolean checkInsertData = DB.insertIngredient(nameString, session_id);
                 if (checkInsertData) {
                     Toast.makeText(FridgeActivity.this, "Ingrediente añadido", Toast.LENGTH_SHORT).show();
+                    name.setText("");
                 } else {
                     Toast.makeText(FridgeActivity.this, "El ingrediente no se ha podido añadir", Toast.LENGTH_SHORT).show();
+                    name.setText("");
                 }
             }
         });
@@ -58,20 +63,19 @@ public class FridgeActivity extends AppCompatActivity {
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cursor res = DB.viewIngredient();
+                Cursor res = DB.viewIngredient(session_id);
                 if (res.getCount() == 0) {
                     Toast.makeText(FridgeActivity.this, "No hay ingredientes", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 StringBuilder buffer = new StringBuilder();
                 while (res.moveToNext()) {
-                    buffer.append("ID: ").append(res.getString(0)).append("/n");
-                    buffer.append("Name: ").append(res.getString(1)).append("/n/n");
+                    buffer.append("- ").append(res.getString(1)).append("\n\n");
                 }
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(FridgeActivity.this);
                 builder.setCancelable(true);
-                builder.setTitle("INGREDIENTES");
+                builder.setTitle("DESPENSA \n\n");
                 builder.setMessage(buffer.toString());
                 builder.show();
             }

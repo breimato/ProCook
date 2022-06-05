@@ -12,17 +12,21 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String KEY_FOR_INTENT = "1";
     FirebaseAuth mAuth;
     Button btnNevera, btnCook, btnManias, btnLoggout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAuth = FirebaseAuth.getInstance();
+        Intent intent = getIntent();
+        String session_id = intent.getStringExtra(KEY_FOR_INTENT);
         setup();
         btnLoggout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mAuth.signOut();
                 Intent loggOut = new Intent(MainActivity.this, Login.class);
                 startActivity(loggOut);
             }
@@ -45,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent fridgeIntent = new Intent(MainActivity.this, FridgeActivity.class);
+                fridgeIntent.putExtra(KEY_FOR_INTENT, session_id);
                 startActivity(fridgeIntent);
             }
         });
@@ -55,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user == null){
             startActivity(new Intent(MainActivity.this, Login.class));
+            finish();
         }
     }
     private void setup(){
@@ -62,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         btnCook = findViewById(R.id.cocinar);
         btnManias = findViewById(R.id.vicios);
         btnLoggout = findViewById(R.id.logout);
+        mAuth = FirebaseAuth.getInstance();
     }
 
 }

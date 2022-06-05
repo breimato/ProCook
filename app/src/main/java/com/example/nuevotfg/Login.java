@@ -3,6 +3,7 @@ package com.example.nuevotfg;
 import android.app.AlertDialog;
 import android.app.backup.FileBackupHelper;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -23,10 +24,13 @@ import java.util.ArrayList;
 
 public class Login extends AppCompatActivity {
 
+    public static final String KEY_FOR_INTENT = "1";
+
     Button btnLogin, btnRegister;
     EditText inputMail, inputPass;
     ArrayList<String> emails = new ArrayList<>();
     ArrayList<String> contraseñas = new ArrayList<>();
+    DBHelper DB;
     FirebaseAuth mAuth;
 
     @Override
@@ -34,7 +38,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setup();
-
+        DB = new DBHelper(this);
         mAuth = FirebaseAuth.getInstance();
 
 //        //Login
@@ -80,8 +84,16 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
+                        String session_id = "";
+                        Cursor res = DB.checkUserAndPass(email, pass);
+                        if (res.moveToFirst()){
+                            session_id = res.getString(res.getColumnIndexOrThrow("idUser"));
+                        }
+
                         Toast.makeText(Login.this, "El usuario se loggeo correctamente", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Login.this, MainActivity.class));
+                        Intent i = new Intent(Login.this, MainActivity.class);
+                        i.putExtra(KEY_FOR_INTENT, session_id);
+                        startActivity(i);
                     } else {
                         Toast.makeText(Login.this, "LogIn error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
