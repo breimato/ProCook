@@ -23,6 +23,19 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String session_id = intent.getStringExtra(KEY_FOR_INTENT);
         setup();
+        buttonsCall(session_id);
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user == null){
+            startActivity(new Intent(MainActivity.this, Login.class));
+            finish();
+        }
+    }
+
+    private void buttonsCall(String session_id){
         btnLoggout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,15 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(fridgeIntent);
             }
         });
-    }
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user == null){
-            startActivity(new Intent(MainActivity.this, Login.class));
-            finish();
-        }
     }
     private void setup(){
         btnNevera = findViewById(R.id.nevera);
