@@ -1,6 +1,7 @@
 package com.example.nuevotfg;
 
 import android.os.Bundle;
+import android.util.Log;
 
 
 import androidx.annotation.NonNull;
@@ -19,7 +20,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class CookActivity extends AppCompatActivity {
+public class CookActivity extends AppCompatActivity implements RecyclerViewAdapter.onResultListener {
+    private static final String TAG = "Click";
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     DBHelper DB;
@@ -31,7 +33,7 @@ public class CookActivity extends AppCompatActivity {
         DB = new DBHelper(this);
         //CONFIGURACIÓN DE LA RECYCLERVIEW
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerViewAdapter = new RecyclerViewAdapter(this);
+        recyclerViewAdapter = new RecyclerViewAdapter(this, this);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setHasFixedSize(true);
         //EN CUANTAS COLUMNAS SE VA A VER LA LISTA
@@ -72,5 +74,9 @@ public class CookActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onResultClick(int position) {
+        Log.d(TAG, "onResultClick: clicked");
+    }
 }
 

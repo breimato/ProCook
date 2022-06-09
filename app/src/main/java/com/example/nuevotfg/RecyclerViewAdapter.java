@@ -11,26 +11,28 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     ArrayList<Result> dataset;
+    private onResultListener mOnResultListener;
+
+
 
     private Context context;
-    public RecyclerViewAdapter(Context context){
+    public RecyclerViewAdapter(Context context, onResultListener onResultListener){
         this.context = context;
+        this.mOnResultListener = onResultListener;
         dataset = new ArrayList<>();
     }
     @NonNull
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnResultListener);
     }
 
     @Override
@@ -54,14 +56,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ImageView fotoImageView;
         private TextView tvTitle;
-
-        public ViewHolder (View view){
+        onResultListener onResultListener;
+        public ViewHolder (View view, onResultListener onResultListener){
             super(view);
             fotoImageView = (ImageView) itemView.findViewById(R.id.imageViewApi);
             tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
+            this.onResultListener = onResultListener;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onResultListener.onResultClick(getAdapterPosition());
+        }
+    }
+
+    public interface onResultListener{
+        void onResultClick(int position);
     }
 }
