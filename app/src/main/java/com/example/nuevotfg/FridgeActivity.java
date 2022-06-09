@@ -22,14 +22,13 @@ public class FridgeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fridge);
-        Intent intent = getIntent();
-        String session_id = intent.getStringExtra(KEY_FOR_INTENT);
         name = findViewById(R.id.ingredientName);
         insertButton = findViewById(R.id.insertButton);
         deleteButton = findViewById(R.id.deleteButton);
         selectButton = findViewById(R.id.viewButton);
         DB = new DBHelper(this);
-
+        Intent intent = getIntent();
+        String session_id = intent.getStringExtra(KEY_FOR_INTENT);
         insertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,11 +37,10 @@ public class FridgeActivity extends AppCompatActivity {
                 boolean checkInsertData = DB.insertIngredient(nameString, session_id);
                 if (checkInsertData) {
                     Toast.makeText(FridgeActivity.this, "Ingrediente añadido", Toast.LENGTH_SHORT).show();
-                    name.setText("");
                 } else {
                     Toast.makeText(FridgeActivity.this, "El ingrediente no se ha podido añadir", Toast.LENGTH_SHORT).show();
-                    name.setText("");
                 }
+                name.setText("");
             }
         });
 

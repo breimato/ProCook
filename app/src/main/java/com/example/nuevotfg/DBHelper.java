@@ -55,10 +55,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("password", password);
         DB.insert("Usuarios", null, contentValues);
 
-
     }
-
-
 
     public boolean deleteIngredient(String name) {
         SQLiteDatabase DB = this.getWritableDatabase();

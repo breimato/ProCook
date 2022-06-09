@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent cookIntent = new Intent(MainActivity.this, CookActivity.class);
+                cookIntent.putExtra(KEY_FOR_INTENT, session_id);
                 startActivity(cookIntent);
             }
         });
