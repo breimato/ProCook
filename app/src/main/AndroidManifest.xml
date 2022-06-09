@@ -28,5 +28,6 @@
         <activity android:name=".ManiasActivity"/>
         <activity android:name=".CookActivity"/>
         <activity android:name=".FridgeActivity"/>
+        <activity android:name=".RecipeViewActivity" />
     </application>
 </manifest>
