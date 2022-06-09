@@ -5,7 +5,6 @@ public class FinalRecipe {
     private String title;
     private int readyInMinutes;
     private String image;
-    private String summary;
     private String instructions;
 
     public String getTitle() {
@@ -30,14 +29,6 @@ public class FinalRecipe {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
     }
 
     public String getInstructions() {

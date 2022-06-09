@@ -37,7 +37,6 @@ public class RecipeViewActivity extends AppCompatActivity {
         tvTitle = findViewById(R.id.tvTitleRecipe);
         tvTime = findViewById(R.id.tvTimeRecipe);
         tvInstructions = findViewById(R.id.tvInstructionsRecipe);
-        tvSummary = findViewById(R.id.tvSummaryRecipe);
         imgRecipe = findViewById(R.id.imageView);
         Intent intent = getIntent();
         int id = intent.getIntExtra(KEY_FOR_INTENT, 0);
@@ -73,9 +72,9 @@ public class RecipeViewActivity extends AppCompatActivity {
                                     .into(imgRecipe);
                             int i = finalRecipe.getReadyInMinutes();
                             String time = Integer.toString(i);
+                            time += " min";
                             tvTitle.setText(finalRecipe.getTitle());
                             tvInstructions.setText(finalRecipe.getInstructions());
-                            tvSummary.setText(finalRecipe.getSummary());
                             tvTime.setText(time);
                         }
                     });
