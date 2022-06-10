@@ -19,4 +19,6 @@
     <string name="nameTextView">Name</string>
     <string name="e_mailTextView">E-Mail</string>
     <string name="passwordTextView">Password</string>
+    <string name="insertar_ingrediente">Insertar ingrediente</string>
+    <string name="eliminar_ingrediente">Eliminar ingrediente</string>
 </resources>

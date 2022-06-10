@@ -93,6 +93,6 @@ public class ManiasActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this, "Alérgeno "+position+1, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Alérgeno número "+position+1, Toast.LENGTH_SHORT).show();
     }
 }
