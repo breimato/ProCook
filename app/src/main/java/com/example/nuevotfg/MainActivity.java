@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent maniasIntent = new Intent(MainActivity.this, ManiasActivity.class);
+                maniasIntent.putExtra(KEY_FOR_INTENT, session_id);
                 startActivity(maniasIntent);
             }
         });

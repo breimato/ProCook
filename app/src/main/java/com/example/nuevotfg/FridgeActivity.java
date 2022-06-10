@@ -34,7 +34,7 @@ public class FridgeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String nameString = name.getText().toString();
 
-                boolean checkInsertData = DB.insertIngredient(nameString, session_id);
+                boolean checkInsertData = DB.insertIngredient(nameString, session_id, 0);
                 if (checkInsertData) {
                     Toast.makeText(FridgeActivity.this, "Ingrediente añadido", Toast.LENGTH_SHORT).show();
                 } else {
@@ -61,7 +61,7 @@ public class FridgeActivity extends AppCompatActivity {
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cursor res = DB.viewIngredient(session_id);
+                Cursor res = DB.viewIngredient(session_id, 0);
                 if (res.getCount() == 0) {
                     Toast.makeText(FridgeActivity.this, "No hay ingredientes", Toast.LENGTH_SHORT).show();
                     return;

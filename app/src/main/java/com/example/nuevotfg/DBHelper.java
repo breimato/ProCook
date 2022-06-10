@@ -39,7 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
         DB.execSQL("DROP TABLE IF EXISTS Usuarios");
     }
 
-    public boolean insertIngredient(String name, String idString) {
+    public boolean insertIngredient(String name, String idString, int check) {
         long result = -1;
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -49,6 +49,7 @@ public class DBHelper extends SQLiteOpenHelper {
         if (!cursor.moveToFirst()){
             contentValues.put("name", name);
             contentValues.put("usuarios_idUser", idUser);
+            contentValues.put("intolerante", check);
             result = DB.insert("Ingredientes", null, contentValues);
         }
         return result != -1;
@@ -78,9 +79,10 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor viewIngredient(String idUser) {
+    public Cursor viewIngredient(String idUser, int check) {
         SQLiteDatabase DB = this.getWritableDatabase();
-        return DB.rawQuery("SELECT * FROM Ingredientes where usuarios_idUser = ?",new String[]{idUser});
+        String checkString = Integer.toString(check);
+        return DB.rawQuery("SELECT * FROM Ingredientes where usuarios_idUser = ? and intolerante = ?",new String[]{idUser, checkString});
 
     }
 

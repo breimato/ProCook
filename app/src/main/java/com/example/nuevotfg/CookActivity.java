@@ -67,7 +67,7 @@ public class CookActivity extends AppCompatActivity implements RecyclerViewAdapt
         Gson gson = new Gson();
         //URL Y APIKEY DE LA API
         DB = new DBHelper(this);
-        Cursor res = DB.viewIngredient(session_id);
+        Cursor res = DB.viewIngredient(session_id, 0);
         StringBuilder buffer = new StringBuilder();
         while (res.moveToNext()) {
             buffer.append(res.getString(1)).append(",");
