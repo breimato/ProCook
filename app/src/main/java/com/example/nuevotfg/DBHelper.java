@@ -25,9 +25,9 @@ public class DBHelper extends SQLiteOpenHelper {
         DB.execSQL("CREATE TABLE Ingredientes (" +
                 "idIngredient INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " name varchar(10)," +
-                " intolerante char(1) DEFAULT 0 NOT NULL, " +
+                " intolerante INTEGER, " +
                 " usuarios_idUser INTEGER," +
-                " FOREIGN KEY (usuarios_idUser) REFERENCES Usuarios (idUser), UNIQUE(name));");
+                " FOREIGN KEY (usuarios_idUser) REFERENCES Usuarios (idUser));");
         DB.execSQL("CREATE TABLE Usuarios (idUser INTEGER PRIMARY KEY AUTOINCREMENT," +
                 " mail varchar(30)," +
                 " password varchar(30));");
@@ -44,12 +44,14 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         int idUser = Integer.parseInt(idString);
+        String checkString = Integer.toString(check);
 
-        Cursor cursor = DB.rawQuery("SELECT * FROM Ingredientes where usuarios_idUser = ? and name = ?",new String[]{idString, name});
+        Cursor cursor = DB.rawQuery("SELECT * FROM Ingredientes where usuarios_idUser = ? and name = ? and intolerante = ?",new String[]{idString, name, checkString});
         if (!cursor.moveToFirst()){
             contentValues.put("name", name);
-            contentValues.put("usuarios_idUser", idUser);
             contentValues.put("intolerante", check);
+            contentValues.put("usuarios_idUser", idUser);
+
             result = DB.insert("Ingredientes", null, contentValues);
         }
         return result != -1;
