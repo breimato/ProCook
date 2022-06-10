@@ -16,6 +16,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 
+import org.jsoup.Jsoup;
+
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -27,7 +29,7 @@ import okhttp3.Response;
 public class RecipeViewActivity extends AppCompatActivity {
 
     public static final String KEY_FOR_INTENT = "1";
-    TextView tvTitle, tvTime, tvInstructions, tvSummary;
+    TextView tvTitle, tvTime, tvInstructions;
     ImageView imgRecipe;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,11 +73,16 @@ public class RecipeViewActivity extends AppCompatActivity {
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                                     .into(imgRecipe);
                             int i = finalRecipe.getReadyInMinutes();
+                            String htmlText = html2text(finalRecipe.getInstructions());
                             String time = Integer.toString(i);
                             time += " min";
                             tvTitle.setText(finalRecipe.getTitle());
-                            tvInstructions.setText(finalRecipe.getInstructions());
+                            tvInstructions.setText(htmlText);
                             tvTime.setText(time);
+                        }
+
+                        public String html2text(String html) {
+                            return Jsoup.parse(html).text();
                         }
                     });
                 }

@@ -22,9 +22,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase DB) {
-        DB.execSQL("CREATE TABLE Ingredientes (idIngredient INTEGER PRIMARY KEY AUTOINCREMENT, name varchar(10)," +
-                " usuarios_idUser INTEGER, FOREIGN KEY (usuarios_idUser) REFERENCES Usuarios (idUser), UNIQUE(name));");
-        DB.execSQL("CREATE TABLE Usuarios (idUser INTEGER PRIMARY KEY AUTOINCREMENT, mail varchar(30), password varchar(30));");
+        DB.execSQL("CREATE TABLE Ingredientes (" +
+                "idIngredient INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " name varchar(10)," +
+                " intolerante char(1) DEFAULT 0 NOT NULL, " +
+                " usuarios_idUser INTEGER," +
+                " FOREIGN KEY (usuarios_idUser) REFERENCES Usuarios (idUser), UNIQUE(name));");
+        DB.execSQL("CREATE TABLE Usuarios (idUser INTEGER PRIMARY KEY AUTOINCREMENT," +
+                " mail varchar(30)," +
+                " password varchar(30));");
     }
 
     @Override

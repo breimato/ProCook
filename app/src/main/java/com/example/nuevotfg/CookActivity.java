@@ -25,7 +25,7 @@ import okhttp3.Response;
 public class CookActivity extends AppCompatActivity implements RecyclerViewAdapter.onResultListener {
     public static final String KEY_FOR_INTENT = "1";
     public static final String url = "https://api.spoonacular.com/recipes/complexSearch?includeIngredients=";
-    public static final String apiKey = "&apiKey=40c52ddeebce4a988c8472b08e9bc93b";
+    public static final String apiKey = "&apiKey=40c52ddeebce4a98 8c8472b08e9bc93b";
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     DBHelper DB;
