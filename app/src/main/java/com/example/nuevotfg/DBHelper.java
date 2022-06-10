@@ -64,11 +64,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean deleteIngredient(String name) {
+    public boolean deleteIngredient(String name, int check) {
+        String checkString = Integer.toString(check);
         SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("SELECT * FROM Ingredientes where name = ?", new String[]{name});
+        Cursor cursor = DB.rawQuery("SELECT * FROM Ingredientes where name = ? and intolerante = ?", new String[]{name, checkString});
         if (cursor.getCount() > 0) {
-            long result = DB.delete("Ingredientes", "name = ?", new String[]{name});
+            long result = DB.delete("Ingredientes", "name = ? and intolerante = ?", new String[]{name, checkString});
             if (result == -1) {
                 return false;
             } else {

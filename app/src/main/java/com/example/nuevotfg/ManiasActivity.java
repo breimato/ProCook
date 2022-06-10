@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManiasActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class ManiasActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     public static final String KEY_FOR_INTENT = "1";
     private EditText etIntolerance;
@@ -31,40 +31,20 @@ public class ManiasActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manias);
 
-
+        Intent intent = getIntent();
+        String session_id = intent.getStringExtra(KEY_FOR_INTENT);
         DB = new DBHelper(this);
         etIntolerance = findViewById(R.id.etIngredientName);
         btnAdd = findViewById(R.id.insertIntolerance);
         btnDelete = findViewById(R.id.deleteIntolerance);
         mListView = findViewById(R.id.listaIntolerancias);
-        btnAdd.setOnClickListener(this);
         mListView.setOnItemClickListener(this);
-        Intent intent = getIntent();
-        String session_id = intent.getStringExtra(KEY_FOR_INTENT);
         addDatabaseToListAdapter(session_id);
-    }
 
-    private void addDatabaseToListAdapter(String session_id) {
-
-        Cursor res = DB.viewIngredient(session_id, 1);
-        while (res.moveToNext()) {
-            String ingrediente = (res.getString(1));
-            if (!mLista.contains(ingrediente)){
-                mLista.add(ingrediente);
-            }
-        }
-        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mLista);
-        mListView.setAdapter(mAdapter);
-    }
-
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.insertIntolerance:
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 String ingredient = etIntolerance.getText().toString().trim();
-                Intent intent = getIntent();
-                String session_id = intent.getStringExtra(KEY_FOR_INTENT);
                 if (ingredient.equals("")){
                     Toast.makeText(ManiasActivity.this, "Input some value", Toast.LENGTH_SHORT).show();
                 }else{
@@ -77,10 +57,38 @@ public class ManiasActivity extends AppCompatActivity implements View.OnClickLis
                     etIntolerance.setText("");
                     addDatabaseToListAdapter(session_id);
                 }
-                break;
-            case R.id.deleteIntolerance:
+            }
+        });
 
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ingredientToDelete = etIntolerance.getText().toString().trim();
+
+                boolean checkDeleteData = DB.deleteIngredient(ingredientToDelete, 1);
+                if (checkDeleteData) {
+                    Toast.makeText(ManiasActivity.this, "Ingrediente eliminado", Toast.LENGTH_SHORT).show();
+                    mLista.remove(ingredientToDelete);
+                } else {
+                    Toast.makeText(ManiasActivity.this, "El ingrediente no se ha podido eliminar", Toast.LENGTH_SHORT).show();
+                }
+                addDatabaseToListAdapter(session_id);
+            }
+        });
+
+
+    }
+
+    private void addDatabaseToListAdapter(String session_id) {
+        Cursor res = DB.viewIngredient(session_id, 1);
+        while (res.moveToNext()) {
+            String ingrediente = (res.getString(1));
+            if (!mLista.contains(ingrediente)){
+                mLista.add(ingrediente);
+            }
         }
+        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mLista);
+        mListView.setAdapter(mAdapter);
     }
 
     @Override

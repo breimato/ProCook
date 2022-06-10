@@ -49,7 +49,7 @@ public class FridgeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String nameString = name.getText().toString();
 
-                boolean checkDeleteData = DB.deleteIngredient(nameString);
+                boolean checkDeleteData = DB.deleteIngredient(nameString, 0);
                 if (checkDeleteData) {
                     Toast.makeText(FridgeActivity.this, "Ingrediente eliminado", Toast.LENGTH_SHORT).show();
                 } else {
