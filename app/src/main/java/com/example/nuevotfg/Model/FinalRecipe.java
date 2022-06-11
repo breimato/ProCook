@@ -1,4 +1,4 @@
-package com.example.nuevotfg;
+package com.example.nuevotfg.Model;
 
 public class FinalRecipe {
 

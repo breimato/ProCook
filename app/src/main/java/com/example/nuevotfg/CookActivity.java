@@ -3,7 +3,6 @@ package com.example.nuevotfg;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 
 
 import androidx.annotation.NonNull;
@@ -11,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nuevotfg.DB.DBHelper;
+import com.example.nuevotfg.Model.Recipe;
+import com.example.nuevotfg.ViewAdapter.RecyclerViewAdapter;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -25,7 +27,7 @@ import okhttp3.Response;
 public class CookActivity extends AppCompatActivity implements RecyclerViewAdapter.onResultListener {
     public static final String KEY_FOR_INTENT = "1";
     public static final String url = "https://api.spoonacular.com/recipes/complexSearch?includeIngredients=";
-    public static final String apiKey = "&apiKey=40c52ddeebce4a98 8c8472b08e9bc93b";
+    public static final String apiKey = "&apiKey=6466dbfbe08c462299e8547928e2df0f";
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
     DBHelper DB;
@@ -73,8 +75,16 @@ public class CookActivity extends AppCompatActivity implements RecyclerViewAdapt
             buffer.append(res.getString(1)).append(",");
         }
         String ingredients = buffer.toString();
+
+        res = DB.viewIngredient(session_id, 1);
+        StringBuilder bufferIntolerances = new StringBuilder();
+        while (res.moveToNext()) {
+            bufferIntolerances.append(res.getString(1)).append(",");
+        }
+        String ingredientsIntolerance = bufferIntolerances.toString();
+
         Request request = new Request.Builder()
-                .url(url + ingredients + apiKey)
+                .url(url + ingredients + "&intolerances=" +ingredientsIntolerance + apiKey)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override

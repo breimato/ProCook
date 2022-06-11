@@ -1,6 +1,5 @@
 package com.example.nuevotfg;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,6 +12,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.nuevotfg.DB.DBHelper;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,12 +1,12 @@
-package com.example.nuevotfg;
+package com.example.nuevotfg.Model;
 
 public class Result {
 
-    private String number;
-    private int id;
-    private String title;
-    private String image;
-    private String imageType;
+    public String number;
+    public int id;
+    public String title;
+    public String image;
+    public String imageType;
 
     public Result(int id, String title, String image, String imageType) {
         this.id = id;

@@ -1,12 +1,9 @@
 package com.example.nuevotfg;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.nuevotfg.Model.FinalRecipe;
 import com.google.gson.Gson;
 
 import org.jsoup.Jsoup;
@@ -47,7 +45,7 @@ public class RecipeViewActivity extends AppCompatActivity {
 
         Gson gson = new Gson();
 
-        String apiKey = "?apiKey=40c52ddeebce4a988c8472b08e9bc93b";
+        String apiKey = "?&apiKey=6466dbfbe08c462299e8547928e2df0f";
         String url = "https://api.spoonacular.com/recipes/"+id+"/information";
 
         Request request = new Request.Builder()

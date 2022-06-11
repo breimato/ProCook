@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser user = mAuth.getCurrentUser();
         if (user == null){
-            startActivity(new Intent(MainActivity.this, Login.class));
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
         }
     }
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
-                Intent loggOut = new Intent(MainActivity.this, Login.class);
+                Intent loggOut = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(loggOut);
             }
         });

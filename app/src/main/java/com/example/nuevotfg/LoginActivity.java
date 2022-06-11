@@ -1,12 +1,9 @@
 package com.example.nuevotfg;
 
-import android.app.AlertDialog;
-import android.app.backup.FileBackupHelper;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.nuevotfg.DB.DBHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     public static final String KEY_FOR_INTENT = "1";
 
@@ -41,7 +39,7 @@ public class Login extends AppCompatActivity {
         DB = new DBHelper(this);
         mAuth = FirebaseAuth.getInstance();
 
-//        //Login
+//        //LoginActivity
 //        btnLogin.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -51,7 +49,7 @@ public class Login extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainActivity = new Intent(Login.this, Register.class);
+                Intent mainActivity = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(mainActivity);
             }
         });
@@ -64,7 +62,7 @@ public class Login extends AppCompatActivity {
         });
 
 //        btnRegister.setOnClickListener(view->{
-//            startActivity(new Intent(Login.this, Register.class));
+//            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
 //        });
     }
 
@@ -90,12 +88,12 @@ public class Login extends AppCompatActivity {
                             session_id = res.getString(res.getColumnIndexOrThrow("idUser"));
                         }
 
-                        Toast.makeText(Login.this, "El usuario se loggeo correctamente", Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(Login.this, MainActivity.class);
+                        Toast.makeText(LoginActivity.this, "El usuario se loggeo correctamente", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
                         i.putExtra(KEY_FOR_INTENT, session_id);
                         startActivity(i);
                     } else {
-                        Toast.makeText(Login.this, "LogIn error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "LogIn error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -113,7 +111,7 @@ public class Login extends AppCompatActivity {
 //        String email = inputMail.getText().toString();
 //        String pass = inputPass.getText().toString();
 //        if (isEmail(inputMail) && isPass(inputPass)) {
-//            Toast.makeText(Login.this, "Registro Correcto", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(LoginActivity.this, "Registro Correcto", Toast.LENGTH_SHORT).show();
 //            emails.add(email);
 //            contraseñas.add(pass);
 //            cambiarActivity(email);
@@ -130,11 +128,11 @@ public class Login extends AppCompatActivity {
 //        if (isEmail(inputMail) && isPass(inputPass)) {
 //            for (int i = 0; i < emails.size(); i++) {
 //                if (email.equals(emails.get(i)) && pass.equals(contraseñas.get(i))) {
-//                    Toast.makeText(Login.this, "Login Correcto", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(LoginActivity.this, "LoginActivity Correcto", Toast.LENGTH_SHORT).show();
 //                    changeActivity();
 //                } else {
 //                    if (i == emails.size() - 1) {
-//                        Toast.makeText(Login.this, "Usuario no registrado", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, "Usuario no registrado", Toast.LENGTH_SHORT).show();
 //                    }
 //                }
 //            }
@@ -155,14 +153,14 @@ public class Login extends AppCompatActivity {
 //    }
 //
 //    private void showAlert(String mensaje) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
 //        builder.setMessage(mensaje);
 //        builder.setTitle("Error");
 //        AlertDialog dialog = builder.create();
 //        dialog.show();
 //    }
 //    private void changeActivity() {
-//        Intent mainActivity = new Intent(this, Register.class);
+//        Intent mainActivity = new Intent(this, RegisterActivity.class);
 //        startActivity(mainActivity);
 //    }
 }
