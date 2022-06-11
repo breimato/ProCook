@@ -1,12 +1,16 @@
 package com.example.nuevotfg;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.nuevotfg.DB.DBHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -15,7 +19,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String KEY_FOR_INTENT = "1";
     FirebaseAuth mAuth;
     Button btnNevera, btnCook, btnManias, btnLoggout;
-
+    TextView tvWelcome;
+    DBHelper DB;
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -23,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
         
         String session_id = setupWithIntent();
         buttonsCall(session_id);
+        Cursor res = DB.viewUser(session_id);
+        while (res.moveToNext()) {
+            String welcome = (res.getString(0));
+            tvWelcome.setText("Welcome, "+welcome);
+        }
     }
     
     @Override
@@ -72,11 +83,13 @@ public class MainActivity extends AppCompatActivity {
     private String setupWithIntent(){
         Intent intent = getIntent();
         String session_id = intent.getStringExtra(KEY_FOR_INTENT);
+        tvWelcome = findViewById(R.id.tvTitle);
         btnNevera = findViewById(R.id.nevera);
         btnCook = findViewById(R.id.cocinar);
         btnManias = findViewById(R.id.vicios);
         btnLoggout = findViewById(R.id.logout);
         mAuth = FirebaseAuth.getInstance();
+        DB = new DBHelper(this);
         return session_id;
     }
 

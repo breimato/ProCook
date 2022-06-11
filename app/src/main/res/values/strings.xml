@@ -27,4 +27,9 @@
     <string name="delete_alergen">delete alergen</string>
     <string name="add_allergen">add allergen</string>
     <string name="type_allergen">Type allergen</string>
+    <string name="welcome">welcome</string>
+    <string name="fridge">FRIDGE</string>
+    <string name="cook">COOK</string>
+    <string name="allergen">allergen</string>
+    <string name="logout">logout</string>
 </resources>

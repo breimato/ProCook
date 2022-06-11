@@ -1,80 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#ffc529"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    android:orientation="horizontal"
+    card_view:cardBackgroundColor="@color/white"
+    card_view:cardCornerRadius="25dp"
+    card_view:cardElevation="10dp"
+    card_view:contentPadding="4dp">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#FBBC00"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="696dp"
+        android:padding="16dp">
 
-    <Button
-        android:id="@+id/nevera"
-        android:layout_width="288dp"
-        android:layout_height="86dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="184dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="56dp"
-        android:backgroundTint="#001643"
-        android:text="NEVERA"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/cocinar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="69dp"
+            android:fontFamily="@font/ultra"
+            android:padding="8dp"
+            android:text="@string/welcome"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            card_view:layout_constraintBottom_toTopOf="@+id/nevera"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/cocinar"
-        android:layout_width="288dp"
-        android:layout_height="86dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="51dp"
-        android:backgroundTint="#001643"
-        android:text="COCINAR"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/vicios"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nevera" />
+        <Button
+            android:id="@+id/nevera"
+            android:layout_width="288dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="63dp"
+            android:background="@drawable/et_style"
+            android:backgroundTint="#272d2f"
+            android:fontFamily="@font/ultra"
+            android:text="@string/fridge"
+            android:textColor="@color/white"
+            card_view:layout_constraintBottom_toTopOf="@+id/cocinar"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.505"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
-    <Button
-        android:id="@+id/vicios"
-        android:layout_width="288dp"
-        android:layout_height="86dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="59dp"
-        android:backgroundTint="#001643"
-        android:text="VICIOS Y MANIAS"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cocinar" />
+        <Button
+            android:id="@+id/cocinar"
+            android:layout_width="288dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="63dp"
+            android:background="@drawable/et_style"
+            android:backgroundTint="#272d2f"
+            android:fontFamily="@font/ultra"
+            android:text="@string/cook"
+            android:textColor="@color/white"
+            card_view:layout_constraintBottom_toTopOf="@+id/vicios"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.494"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/nevera" />
 
-    <Button
-        android:id="@+id/logout"
-        android:layout_width="281dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="141dp"
-        android:backgroundTint="#B60000"
-        android:text="logout"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vicios" />
+        <Button
+            android:id="@+id/vicios"
+            android:layout_width="288dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="77dp"
+            android:background="@drawable/et_style"
+            android:backgroundTint="#272d2f"
+            android:fontFamily="@font/ultra"
+            android:text="@string/allergen"
+            android:textColor="@color/white"
+            card_view:layout_constraintBottom_toTopOf="@+id/logout"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/cocinar" />
 
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="281dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="47dp"
+            android:background="@drawable/et_style"
+            android:backgroundTint="#Fe724c"
+            android:fontFamily="@font/ultra"
+            android:text="@string/logout"
+            android:textColor="@color/white"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.469"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/vicios" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
