@@ -32,7 +32,7 @@ public class RecipeViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recipe_view);
+        setContentView(R.layout.activity_recipe);
 
         tvTitle = findViewById(R.id.tvTitleRecipe);
         tvTime = findViewById(R.id.tvTimeRecipe);
