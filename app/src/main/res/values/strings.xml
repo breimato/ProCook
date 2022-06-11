@@ -21,4 +21,6 @@
     <string name="passwordTextView">Password</string>
     <string name="insertar_ingrediente">Insertar ingrediente</string>
     <string name="eliminar_ingrediente">Eliminar ingrediente</string>
+    <string name="recipename">RecipeName</string>
+    <string name="title">RECIPES</string>
 </resources>

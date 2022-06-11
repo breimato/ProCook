@@ -1,26 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
     android:orientation="horizontal"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    card_view:cardBackgroundColor="@color/white"
+    card_view:cardCornerRadius="25dp"
+    card_view:cardElevation="10dp"
+    card_view:contentPadding="4dp">
 
-    <ImageView
-        android:id="@+id/imageViewApi"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:padding="1dp"
-        android:background="@color/black"
-        />
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="8dp"
-        android:textStyle="bold"
-        android:fontFamily="arial"
-        android:textColor="@color/black"
-        android:text="TextView"
-        android:textAllCaps="true"/>
-</LinearLayout>
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/imageViewApi"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/black"
+            android:padding="1dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_toEndOf="@+id/imageViewApi"
+            android:fontFamily="@font/ultra"
+            android:padding="8dp"
+            android:text="@string/recipename"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
