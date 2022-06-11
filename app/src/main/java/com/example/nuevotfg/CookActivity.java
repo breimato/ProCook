@@ -16,6 +16,7 @@ import com.example.nuevotfg.ViewAdapter.RecyclerViewAdapter;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -68,7 +69,7 @@ public class CookActivity extends AppCompatActivity implements RecyclerViewAdapt
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    String myResponse = response.body().string();
+                    String myResponse = Objects.requireNonNull(response.body()).string();
                     CookActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {

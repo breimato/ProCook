@@ -70,12 +70,12 @@ public class LoginActivity extends AppCompatActivity {
                         if (res.moveToFirst()){
                             session_id = res.getString(res.getColumnIndexOrThrow("idUser"));
                         }
-                        Toast.makeText(LoginActivity.this, "El usuario se loggeo correctamente", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "User logged in", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(LoginActivity.this, MainActivity.class);
                         i.putExtra(KEY_FOR_INTENT, session_id);
                         startActivity(i);
                     } else {
-                        Toast.makeText(LoginActivity.this, "LogIn error" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Login error", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

@@ -27,9 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        mAuth = FirebaseAuth.getInstance();
-        DB = new DBHelper(this);
-        registerButton = findViewById(R.id.buttonRegisterView);
+        setup();
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,17 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void userToDatabase(){
-        emailText = findViewById(R.id.emailBox);
-        passText = findViewById(R.id.passwordTextBox);
-        String email = emailText.getText().toString();
-        String pass = passText.getText().toString();
-
-        DB.insertUser(email, pass);
-    }
     private void createUser(){
-        emailText = findViewById(R.id.emailBox);
-        passText = findViewById(R.id.passwordTextBox);
         String email = emailText.getText().toString();
         String pass = passText.getText().toString();
 
@@ -73,5 +61,20 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void userToDatabase(){
+        String email = emailText.getText().toString();
+        String pass = passText.getText().toString();
+
+        DB.insertUser(email, pass);
+    }
+
+    private void setup() {
+        mAuth = FirebaseAuth.getInstance();
+        DB = new DBHelper(this);
+        registerButton = findViewById(R.id.buttonRegisterView);
+        emailText = findViewById(R.id.emailBox);
+        passText = findViewById(R.id.passwordTextBox);
     }
 }

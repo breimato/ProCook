@@ -15,13 +15,10 @@ import androidx.appcompat.app.AppCompatActivity;
 @SuppressLint("CustomSplashScreen")
 public class SplashScreenActivity extends AppCompatActivity {
 
-    //Anim Variables
-
-    private static int SPLASH_SCREEN = 5000;
-
     Animation topAnim, botAnim;
     ImageView appLogo;
     TextView logo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +34,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         appLogo.setAnimation(topAnim);
         logo.setAnimation(botAnim);
 
+        int SPLASH_SCREEN = 5000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
