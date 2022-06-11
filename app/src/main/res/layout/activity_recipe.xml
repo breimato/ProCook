@@ -1,82 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/color_gradient"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    android:background="#ffc529"
+    android:orientation="horizontal"
+    card_view:cardBackgroundColor="@color/white"
+    card_view:cardCornerRadius="25dp"
+    card_view:cardElevation="10dp"
+    card_view:contentPadding="4dp">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvTitleRecipe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="696dp"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvTitleRecipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="arial"
-        android:text="TextView"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/tvInstructionsRecipe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.701" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            card_view:layout_constraintBottom_toTopOf="@+id/textView3"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.497"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintVertical_bias="0.796" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="arial"
-        android:text="Preparacion:"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvInstructionsRecipe"
-        app:layout_constraintEnd_toStartOf="@+id/tvTimeRecipe"
-        app:layout_constraintHorizontal_bias="0.072"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.934" />
+        <TextView
+            android:id="@+id/tvTitleRecipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ultra"
+            android:text="@string/textview"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            card_view:layout_constraintBottom_toTopOf="@+id/imageView"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.498"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintVertical_bias="0.01" />
 
-    <TextView
-        android:id="@+id/tvTimeRecipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="arial"
-        android:text="TextView"
-        android:textColor="@color/black"
-        android:textSize="18dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvInstructionsRecipe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.724"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.934" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ultra"
+            android:text="@string/prepare"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toStartOf="@+id/tvTimeRecipe"
+            card_view:layout_constraintHorizontal_bias="0.111"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintVertical_bias="0.466" />
 
-    <TextView
-        android:id="@+id/tvInstructionsRecipe"
-        android:layout_width="362dp"
-        android:layout_height="429dp"
-        android:fontFamily="arial"
-        android:lineSpacingExtra="10sp"
-        android:maxLines="24"
-        android:minLines="1"
-        android:text="TextView"
-        android:textColor="@color/black"
-        android:textSize="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.947" />
+        <TextView
+            android:id="@+id/tvTimeRecipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ultra"
+            android:text="@string/textview"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.942"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintVertical_bias="0.468" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvInstructionsRecipe"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:fontFamily="arial"
+            android:lineSpacingExtra="10sp"
+            android:maxLines="20"
+            android:minLines="1"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.493"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/imageView"
+            card_view:layout_constraintVertical_bias="0.702" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

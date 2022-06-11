@@ -32,4 +32,7 @@
     <string name="cook">COOK</string>
     <string name="allergen">allergen</string>
     <string name="logout">logout</string>
+    <string name="textview">TextView</string>
+    <string name="prepare">Prepare:</string>
+    <string name="textview">TextView</string>
 </resources>
