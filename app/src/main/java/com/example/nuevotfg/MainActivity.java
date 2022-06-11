@@ -20,11 +20,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = getIntent();
-        String session_id = intent.getStringExtra(KEY_FOR_INTENT);
-        setup();
+        
+        String session_id = setupWithIntent();
         buttonsCall(session_id);
     }
+    
     @Override
     protected void onStart() {
         super.onStart();
@@ -69,12 +69,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    private void setup(){
+    private String setupWithIntent(){
+        Intent intent = getIntent();
+        String session_id = intent.getStringExtra(KEY_FOR_INTENT);
         btnNevera = findViewById(R.id.nevera);
         btnCook = findViewById(R.id.cocinar);
         btnManias = findViewById(R.id.vicios);
         btnLoggout = findViewById(R.id.logout);
         mAuth = FirebaseAuth.getInstance();
+        return session_id;
     }
 
 }

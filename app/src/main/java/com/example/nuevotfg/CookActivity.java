@@ -28,22 +28,16 @@ public class CookActivity extends AppCompatActivity implements RecyclerViewAdapt
     public static final String KEY_FOR_INTENT = "1";
     public static final String url = "https://api.spoonacular.com/recipes/complexSearch?includeIngredients=";
     public static final String apiKey = "&apiKey=6466dbfbe08c462299e8547928e2df0f";
-    private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
+    Gson gson;
     DBHelper DB;
+    OkHttpClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook);
-        Intent intent = getIntent();
-        String session_id = intent.getStringExtra(KEY_FOR_INTENT);
-        //INSTANCIA DEL DB HELPER
-        DB = new DBHelper(this);
-        //CONFIGURACIÓN DE LA RECYCLERVIEW
-        recyclerViewSetup();
-        //CONSULTA A LA API
-        getHttpRequestAndCall(-1, session_id);
+        getHttpRequestAndCall(-1, recyclerViewSetupAndIntent());
     }
 
     @Override
@@ -53,40 +47,18 @@ public class CookActivity extends AppCompatActivity implements RecyclerViewAdapt
         getHttpRequestAndCall(position, session_id);
     }
 
-    private void recyclerViewSetup() {
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerViewAdapter = new RecyclerViewAdapter(this, this);
-        recyclerView.setAdapter(recyclerViewAdapter);
-        recyclerView.setHasFixedSize(true);
-        //EN CUANTAS COLUMNAS SE VA A VER LA LISTA
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
-        recyclerView.setLayoutManager(layoutManager);
-    }
-
     private void getHttpRequestAndCall(int position, String session_id) {
-        OkHttpClient client = new OkHttpClient();
-        //GSON PARA PARSEAR EL JSON A OBJETO
-        Gson gson = new Gson();
-        //URL Y APIKEY DE LA API
-        DB = new DBHelper(this);
         Cursor res = DB.viewIngredient(session_id, 0);
-        StringBuilder buffer = new StringBuilder();
-        while (res.moveToNext()) {
-            buffer.append(res.getString(1)).append(",");
-        }
-        String ingredients = buffer.toString();
+        String ingredients = getIngredientsOrIntolerances(res);
 
         res = DB.viewIngredient(session_id, 1);
-        StringBuilder bufferIntolerances = new StringBuilder();
-        while (res.moveToNext()) {
-            bufferIntolerances.append(res.getString(1)).append(",");
-        }
-        String ingredientsIntolerance = bufferIntolerances.toString();
+        String ingredientsIntolerance = getIngredientsOrIntolerances(res);
 
         Request request = new Request.Builder()
                 .url(url + ingredients + "&intolerances=" +ingredientsIntolerance + apiKey)
                 .build();
         client.newCall(request).enqueue(new Callback() {
+
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 e.printStackTrace();
@@ -99,20 +71,47 @@ public class CookActivity extends AppCompatActivity implements RecyclerViewAdapt
                     CookActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            Recipe r = gson.fromJson(myResponse, Recipe.class);
                             if (position == -1) {
-                                Recipe r = gson.fromJson(myResponse, Recipe.class);
                                 recyclerViewAdapter.addFoodList(r);
                             } else {
-                                Recipe r = gson.fromJson(myResponse, Recipe.class);
-                                Intent intent = new Intent(CookActivity.this, RecipeViewActivity.class);
-                                intent.putExtra(KEY_FOR_INTENT, r.results.get(position).getId());
-                                startActivity(intent);
+                                startActivityFunction(r, position);
                             }
                         }
                     });
                 }
             }
         });
+    }
+
+    private void startActivityFunction(Recipe r, int position) {
+        Intent intent = new Intent(CookActivity.this, RecipeViewActivity.class);
+        intent.putExtra(KEY_FOR_INTENT, r.results.get(position).getId());
+        startActivity(intent);
+    }
+
+    @NonNull
+    private String getIngredientsOrIntolerances(Cursor res) {
+        StringBuilder buffer = new StringBuilder();
+        while (res.moveToNext()) {
+            buffer.append(res.getString(1)).append(",");
+        }
+        return buffer.toString();
+    }
+
+    private String recyclerViewSetupAndIntent() {
+        Intent intent = getIntent();
+        String session_id = intent.getStringExtra(KEY_FOR_INTENT);
+        DB = new DBHelper(this);
+        gson = new Gson();
+        client = new OkHttpClient();
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerViewAdapter = new RecyclerViewAdapter(this, this);
+        recyclerView.setAdapter(recyclerViewAdapter);
+        recyclerView.setHasFixedSize(true);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
+        recyclerView.setLayoutManager(layoutManager);
+        return session_id;
     }
 }
 

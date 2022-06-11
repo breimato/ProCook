@@ -23,29 +23,16 @@ import java.util.ArrayList;
 public class LoginActivity extends AppCompatActivity {
 
     public static final String KEY_FOR_INTENT = "1";
-
     Button btnLogin, btnRegister;
     EditText inputMail, inputPass;
-    ArrayList<String> emails = new ArrayList<>();
-    ArrayList<String> contraseñas = new ArrayList<>();
     DBHelper DB;
     FirebaseAuth mAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setup();
-        DB = new DBHelper(this);
-        mAuth = FirebaseAuth.getInstance();
 
-//        //LoginActivity
-//        btnLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                loginButton();
-//            }
-//        });
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,10 +47,6 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser();
             }
         });
-
-//        btnRegister.setOnClickListener(view->{
-//            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-//        });
     }
 
     private void loginUser() {
@@ -87,7 +70,6 @@ public class LoginActivity extends AppCompatActivity {
                         if (res.moveToFirst()){
                             session_id = res.getString(res.getColumnIndexOrThrow("idUser"));
                         }
-
                         Toast.makeText(LoginActivity.this, "El usuario se loggeo correctamente", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(LoginActivity.this, MainActivity.class);
                         i.putExtra(KEY_FOR_INTENT, session_id);
@@ -101,6 +83,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setup() {
+        DB = new DBHelper(this);
+        mAuth = FirebaseAuth.getInstance();
         btnLogin = findViewById(R.id.loginButton);
         btnRegister = findViewById(R.id.registerButton);
         inputMail = findViewById(R.id.emailTextBox);
