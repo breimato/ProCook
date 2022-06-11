@@ -21,27 +21,17 @@ import java.util.List;
 public class FridgeActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     public static final String KEY_FOR_INTENT = "1";
+    private ListView mListView;
+    private final List<String> mLista = new ArrayList<>();
     EditText name;
     Button insertButton, deleteButton;
-    private ListView mListView;
-    private List<String> mLista = new ArrayList<>();
-    private ArrayAdapter<String> mAdapter;
     DBHelper DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fridge);
-
-        Intent intent = getIntent();
-        String session_id = intent.getStringExtra(KEY_FOR_INTENT);
-        DB = new DBHelper(this);
-        name = findViewById(R.id.ingredientName);
-        insertButton = findViewById(R.id.insertButton);
-        deleteButton = findViewById(R.id.deleteButton);
-        mListView = findViewById(R.id.listaIngredientes);
-        mListView.setOnItemClickListener(this);
-
+        String session_id = setupWithIntent();
         addDatabaseToListAdapter(session_id);
 
         insertButton.setOnClickListener(new View.OnClickListener() {
@@ -51,14 +41,7 @@ public class FridgeActivity extends AppCompatActivity implements AdapterView.OnI
                 if (ingredient.equals("")){
                     Toast.makeText(FridgeActivity.this, "Input some value", Toast.LENGTH_SHORT).show();
                 }else{
-                    boolean checkInsertData = DB.insertIngredient(ingredient, session_id, 0);
-                    if (checkInsertData) {
-                        Toast.makeText(FridgeActivity.this, "Ingrediente añadido", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(FridgeActivity.this, "El ingrediente no se ha podido añadir", Toast.LENGTH_SHORT).show();
-                    }
-                    name.setText("");
-                    addDatabaseToListAdapter(session_id);
+                    insertIngredient(ingredient, session_id);
                 }
             }
         });
@@ -67,19 +50,51 @@ public class FridgeActivity extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View v) {
                 String ingredientToDelete = name.getText().toString().trim();
-
-                boolean checkDeleteData = DB.deleteIngredient(ingredientToDelete, 0);
-                if (checkDeleteData) {
-                    Toast.makeText(FridgeActivity.this, "Ingrediente eliminado", Toast.LENGTH_SHORT).show();
-                    mLista.remove(ingredientToDelete);
-                } else {
-                    Toast.makeText(FridgeActivity.this, "El ingrediente no se ha podido eliminar", Toast.LENGTH_SHORT).show();
+                if (ingredientToDelete.equals("")){
+                    Toast.makeText(FridgeActivity.this, "Input some value", Toast.LENGTH_SHORT).show();
+                }else{
+                    deleteIngredient(ingredientToDelete, session_id);
                 }
-                addDatabaseToListAdapter(session_id);
+
             }
         });
 
 
+    }
+
+    private void insertIngredient(String ingredient, String session_id) {
+        boolean checkInsertData = DB.insertIngredient(ingredient, session_id, 0);
+        if (checkInsertData) {
+            Toast.makeText(FridgeActivity.this, "Ingredient added", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(FridgeActivity.this, "Can´t add the ingredient", Toast.LENGTH_SHORT).show();
+        }
+        name.setText("");
+        addDatabaseToListAdapter(session_id);
+    }
+
+    private void deleteIngredient(String ingredientToDelete, String session_id) {
+        boolean checkDeleteData = DB.deleteIngredient(ingredientToDelete, 0);
+        if (checkDeleteData) {
+            Toast.makeText(FridgeActivity.this, "Ingredient removed", Toast.LENGTH_SHORT).show();
+            mLista.remove(ingredientToDelete);
+        } else {
+            Toast.makeText(FridgeActivity.this, "Can´t remove the ingredient", Toast.LENGTH_SHORT).show();
+        }
+        addDatabaseToListAdapter(session_id);
+        name.setText("");
+    }
+
+    private String setupWithIntent() {
+        Intent intent = getIntent();
+        String session_id = intent.getStringExtra(KEY_FOR_INTENT);
+        DB = new DBHelper(this);
+        name = findViewById(R.id.ingredientName);
+        insertButton = findViewById(R.id.insertButton);
+        deleteButton = findViewById(R.id.deleteButton);
+        mListView = findViewById(R.id.listaIngredientes);
+        mListView.setOnItemClickListener(this);
+        return session_id;
     }
 
     private void addDatabaseToListAdapter(String session_id) {
@@ -90,7 +105,7 @@ public class FridgeActivity extends AppCompatActivity implements AdapterView.OnI
                 mLista.add(ingrediente);
             }
         }
-        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mLista);
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mLista);
         mListView.setAdapter(mAdapter);
     }
 

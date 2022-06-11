@@ -24,39 +24,25 @@ public class ManiasActivity extends AppCompatActivity implements AdapterView.OnI
     private EditText etIntolerance;
     private Button btnAdd, btnDelete;
     private ListView mListView;
-    private List<String> mLista = new ArrayList<>();
-    private ArrayAdapter<String> mAdapter;
+    private final List<String> mLista = new ArrayList<>();
     DBHelper DB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manias);
-
-        Intent intent = getIntent();
-        String session_id = intent.getStringExtra(KEY_FOR_INTENT);
-        DB = new DBHelper(this);
-        etIntolerance = findViewById(R.id.etIngredientName);
-        btnAdd = findViewById(R.id.insertIntolerance);
-        btnDelete = findViewById(R.id.deleteIntolerance);
-        mListView = findViewById(R.id.listaIntolerancias);
-        mListView.setOnItemClickListener(this);
+        String session_id = setupWithIntent();
         addDatabaseToListAdapter(session_id);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String ingredient = etIntolerance.getText().toString().trim();
+
                 if (ingredient.equals("")){
                     Toast.makeText(ManiasActivity.this, "Input some value", Toast.LENGTH_SHORT).show();
                 }else{
-                    boolean checkInsertData = DB.insertIngredient(ingredient, session_id, 1);
-                    if (checkInsertData) {
-                        Toast.makeText(ManiasActivity.this, "Alérgeno añadido", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(ManiasActivity.this, "El alérgeno no se ha podido añadir", Toast.LENGTH_SHORT).show();
-                    }
-                    etIntolerance.setText("");
-                    addDatabaseToListAdapter(session_id);
+                    insertAllergen(ingredient, session_id);
                 }
             }
         });
@@ -66,18 +52,51 @@ public class ManiasActivity extends AppCompatActivity implements AdapterView.OnI
             public void onClick(View v) {
                 String ingredientToDelete = etIntolerance.getText().toString().trim();
 
-                boolean checkDeleteData = DB.deleteIngredient(ingredientToDelete, 1);
-                if (checkDeleteData) {
-                    Toast.makeText(ManiasActivity.this, "Ingrediente eliminado", Toast.LENGTH_SHORT).show();
-                    mLista.remove(ingredientToDelete);
-                } else {
-                    Toast.makeText(ManiasActivity.this, "El ingrediente no se ha podido eliminar", Toast.LENGTH_SHORT).show();
+                if (ingredientToDelete.equals("")){
+                    Toast.makeText(ManiasActivity.this, "Input some value", Toast.LENGTH_SHORT).show();
+                }else{
+                    deleteAllergen(ingredientToDelete, session_id);
                 }
-                addDatabaseToListAdapter(session_id);
+
             }
         });
 
 
+    }
+
+    private void deleteAllergen(String ingredientToDelete, String session_id) {
+        boolean checkDeleteData = DB.deleteIngredient(ingredientToDelete, 1);
+        if (checkDeleteData) {
+            Toast.makeText(ManiasActivity.this, "Allergen removed", Toast.LENGTH_SHORT).show();
+            mLista.remove(ingredientToDelete);
+        } else {
+            Toast.makeText(ManiasActivity.this, "Can´t remove the allergen", Toast.LENGTH_SHORT).show();
+        }
+        addDatabaseToListAdapter(session_id);
+        etIntolerance.setText("");
+    }
+
+    private void insertAllergen(String ingredient, String session_id) {
+        boolean checkInsertData = DB.insertIngredient(ingredient, session_id, 1);
+        if (checkInsertData) {
+            Toast.makeText(ManiasActivity.this, "Allergen added", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(ManiasActivity.this, "Can´t add the allergen", Toast.LENGTH_SHORT).show();
+        }
+        etIntolerance.setText("");
+        addDatabaseToListAdapter(session_id);
+    }
+
+    private String setupWithIntent() {
+        Intent intent = getIntent();
+        String session_id = intent.getStringExtra(KEY_FOR_INTENT);
+        DB = new DBHelper(this);
+        etIntolerance = findViewById(R.id.etIngredientName);
+        btnAdd = findViewById(R.id.insertIntolerance);
+        btnDelete = findViewById(R.id.deleteIntolerance);
+        mListView = findViewById(R.id.listaIntolerancias);
+        mListView.setOnItemClickListener(this);
+        return session_id;
     }
 
     private void addDatabaseToListAdapter(String session_id) {
@@ -88,7 +107,7 @@ public class ManiasActivity extends AppCompatActivity implements AdapterView.OnI
                 mLista.add(ingrediente);
             }
         }
-        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mLista);
+        ArrayAdapter<String> mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mLista);
         mListView.setAdapter(mAdapter);
     }
 
