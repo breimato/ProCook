@@ -32,6 +32,7 @@ public class CookActivity extends AppCompatActivity implements RecyclerViewAdapt
     Gson gson;
     DBHelper DB;
     OkHttpClient client;
+    Cursor res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,7 @@ public class CookActivity extends AppCompatActivity implements RecyclerViewAdapt
     }
 
     private void getHttpRequestAndCall(int position, String session_id) {
-        Cursor res = DB.viewIngredient(session_id, 0);
+        res = DB.viewIngredient(session_id, 0);
         String ingredients = getIngredientsOrIntolerances(res);
 
         res = DB.viewIngredient(session_id, 1);
