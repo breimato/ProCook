@@ -14,7 +14,7 @@
     <string name="nameHint">Type your name</string>
     <string name="emailHint">Type your email</string>
     <string name="phoneHint">Type your phone number</string>
-    <string name="phoneTextView">Phone Number</string>
+    <string name="phoneTextView">Mobile Phone</string>
     <string name="lastnameTextView">Lastname</string>
     <string name="nameTextView">Name</string>
     <string name="e_mailTextView">E-Mail</string>
