@@ -4,10 +4,10 @@
     <string name="login">LOGIN</string>
     <string name="type_password">Type Password</string>
     <string name="type_email">Type Email</string>
-    <string name="reg_strate_ahora">Regístrate ahora</string>
-    <string name="no_tienes_una_cuenta">¿No tienes una cuenta?</string>
+    <string name="reg_strate_ahora">Register now!</string>
+    <string name="no_tienes_una_cuenta">¿Don´t have an account?</string>
     <string name="underline_button">
-        <u>Regístrate ahora</u>
+        <u>Register now!</u>
     </string>
     <string name="register">Registrarse</string>
     <string name="lastnameHint">Type your lastname</string>
@@ -19,8 +19,12 @@
     <string name="nameTextView">Name</string>
     <string name="e_mailTextView">E-Mail</string>
     <string name="passwordTextView">Password</string>
-    <string name="insertar_ingrediente">Insertar ingrediente</string>
-    <string name="eliminar_ingrediente">Eliminar ingrediente</string>
+    <string name="insertar_ingrediente">ADD INGREDIENT</string>
+    <string name="eliminar_ingrediente">DELETE INGREDIENT</string>
     <string name="recipename">RecipeName</string>
     <string name="title">RECIPES</string>
+    <string name="type_ingredient">Type ingredient</string>
+    <string name="delete_alergen">delete alergen</string>
+    <string name="add_allergen">add allergen</string>
+    <string name="type_allergen">Type allergen</string>
 </resources>

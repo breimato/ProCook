@@ -18,10 +18,10 @@
         android:id="@+id/cookLogo"
         android:layout_width="243dp"
         android:layout_height="0dp"
-        android:layout_marginStart="67dp"
         android:layout_marginTop="81dp"
         android:src="@drawable/logo"
         app:layout_constraintBottom_toTopOf="@+id/appName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,13 +32,14 @@
         android:layout_marginStart="71dp"
         android:layout_marginEnd="71dp"
         android:layout_marginBottom="114dp"
-        android:fontFamily="@font/pacifico"
+        android:fontFamily="@font/ultra"
         android:text="@string/appName"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cookLogo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

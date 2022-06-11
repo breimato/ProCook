@@ -1,15 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/color_gradient">
-
+    android:background="#FFC529">
 
     <EditText
         android:id="@+id/etIngredientName"
-        android:layout_width="390dp"
+        android:layout_width="370dp"
         android:layout_height="47dp"
+        android:background="@drawable/et_style"
+        android:backgroundTint="@color/white"
+        android:hint="@string/type_allergen"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/insertIntolerance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,11 +19,14 @@
 
     <Button
         android:id="@+id/insertIntolerance"
-        android:layout_width="390dp"
+        android:layout_width="370dp"
         android:layout_height="47dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="13dp"
-        android:backgroundTint="#001643"
-        android:text="Insertar alérgeno"
+        android:backgroundTint="#272d2F"
+        android:background="@drawable/et_style"
+        android:text="@string/add_allergen"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/listaIntolerancias"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,11 +35,11 @@
 
     <Button
         android:id="@+id/deleteIntolerance"
-        android:layout_width="390dp"
+        android:layout_width="370dp"
         android:layout_height="47dp"
-        android:layout_marginBottom="1dp"
-        android:backgroundTint="#001643"
-        android:text="Eliminar alérgeno"
+        android:backgroundTint="#fe724c"
+        android:background="@drawable/et_style"
+        android:text="@string/delete_alergen"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,12 +48,11 @@
 
     <ListView
         android:id="@+id/listaIntolerancias"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/deleteIntolerance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/insertIntolerance" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

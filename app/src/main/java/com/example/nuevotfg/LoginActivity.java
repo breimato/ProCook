@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,7 +24,8 @@ import java.util.ArrayList;
 public class LoginActivity extends AppCompatActivity {
 
     public static final String KEY_FOR_INTENT = "1";
-    Button btnLogin, btnRegister;
+    Button btnLogin;
+    TextView btnRegister;
     EditText inputMail, inputPass;
     DBHelper DB;
     FirebaseAuth mAuth;

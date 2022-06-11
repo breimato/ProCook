@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/color_gradient">
+    android:background="#FFC529">
 
     <EditText
         android:id="@+id/ingredientName"
-        android:layout_width="390dp"
+        android:layout_width="370dp"
         android:layout_height="47dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:background="@drawable/et_style"
+        android:backgroundTint="@color/white"
+        android:hint="@string/type_ingredient"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/insertButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,12 +20,13 @@
 
     <Button
         android:id="@+id/insertButton"
-        android:layout_width="390dp"
+        android:layout_width="370dp"
         android:layout_height="47dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="13dp"
-        android:backgroundTint="#001643"
+        android:backgroundTint="#272d2F"
+        android:background="@drawable/et_style"
         android:text="@string/insertar_ingrediente"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/listaIngredientes"
@@ -34,12 +36,10 @@
 
     <Button
         android:id="@+id/deleteButton"
-        android:layout_width="390dp"
+        android:layout_width="370dp"
         android:layout_height="47dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="1dp"
-        android:backgroundTint="#001643"
+        android:backgroundTint="#fe724c"
+        android:background="@drawable/et_style"
         android:text="@string/eliminar_ingrediente"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,8 +50,8 @@
     <ListView
         android:id="@+id/listaIngredientes"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="500dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/deleteButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
