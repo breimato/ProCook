@@ -1,5 +1,6 @@
 package com.example.nuevotfg.ViewAdapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,16 +22,17 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     ArrayList<Result> dataset;
-    private onResultListener mOnResultListener;
+    private final onResultListener mOnResultListener;
 
 
+    private final Context context;
 
-    private Context context;
-    public RecyclerViewAdapter(Context context, onResultListener onResultListener){
+    public RecyclerViewAdapter(Context context, onResultListener onResultListener) {
         this.context = context;
         this.mOnResultListener = onResultListener;
         dataset = new ArrayList<>();
     }
+
     @NonNull
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,7 +45,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Result r = dataset.get(position);
         holder.tvTitle.setText(r.getTitle());
         Glide.with(context)
-                .load("https://spoonacular.com/recipeImages/"+r.getNumber())
+                .load(r.getImage())
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.fotoImageView);
@@ -54,21 +56,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return dataset.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void addFoodList(Recipe r) {
         dataset.addAll(r.results);
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private ImageView fotoImageView;
-        private TextView tvTitle;
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final ImageView fotoImageView;
+        private final TextView tvTitle;
         onResultListener onResultListener;
-        public ViewHolder (View view, onResultListener onResultListener){
+
+        public ViewHolder(View view, onResultListener onResultListener) {
             super(view);
-            fotoImageView = (ImageView) itemView.findViewById(R.id.imageViewApi);
-            tvTitle = (TextView) itemView.findViewById(R.id.tvTitle);
-            this.onResultListener = onResultListener;
+            fotoImageView = itemView.findViewById(R.id.imageViewApi);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
             itemView.setOnClickListener(this);
+            this.onResultListener = onResultListener;
         }
 
         @Override
@@ -77,7 +81,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 
-    public interface onResultListener{
+    public interface onResultListener {
         void onResultClick(int position);
     }
 }
