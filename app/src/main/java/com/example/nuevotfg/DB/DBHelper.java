@@ -29,8 +29,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 " usuarios_idUser INTEGER," +
                 " FOREIGN KEY (usuarios_idUser) REFERENCES Usuarios (idUser));");
         DB.execSQL("CREATE TABLE Usuarios (idUser INTEGER PRIMARY KEY AUTOINCREMENT," +
-                " mail varchar(30)," +
-                " password varchar(30));");
+                "mail varchar(30)," +
+                "password varchar(30)," +
+                "name varchar(30)," +
+                "lastname varchar(30)," +
+                "phone varchar(30));");
     }
 
     @Override
@@ -57,11 +60,14 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    public void insertUser(String mail, String password) {
+    public void insertUser(String mail, String password, String name, String lastname, String phone) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("mail", mail);
         contentValues.put("password", password);
+        contentValues.put("name", name);
+        contentValues.put("lastname", lastname);
+        contentValues.put("phone", phone);
         DB.insert("Usuarios", null, contentValues);
 
     }

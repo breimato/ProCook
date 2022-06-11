@@ -18,8 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText emailText;
-    EditText passText;
+    EditText emailText, passText, nameText, lastnameText, phoneText;
     Button registerButton;
     FirebaseAuth mAuth;
     DBHelper DB;
@@ -66,8 +65,10 @@ public class RegisterActivity extends AppCompatActivity {
     private void userToDatabase(){
         String email = emailText.getText().toString();
         String pass = passText.getText().toString();
-
-        DB.insertUser(email, pass);
+        String name = nameText.getText().toString();
+        String lastname = lastnameText.getText().toString();
+        String phone = phoneText.getText().toString();
+        DB.insertUser(email, pass, name, lastname, phone);
     }
 
     private void setup() {
@@ -76,5 +77,8 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.buttonRegisterView);
         emailText = findViewById(R.id.emailBox);
         passText = findViewById(R.id.passwordTextBox);
+        nameText = findViewById(R.id.nameBox);
+        lastnameText = findViewById(R.id.lastNameBox);
+        phoneText = findViewById(R.id.phoneTextBox);
     }
 }
