@@ -94,27 +94,4 @@ public class DBHelper extends SQLiteOpenHelper {
         return DB.rawQuery("SELECT * FROM Ingredientes where usuarios_idUser = ? and intolerante = ?",new String[]{idUser, checkString});
 
     }
-
-    public Cursor checkUserAndPass(String user, String pass) throws SQLException {
-        Cursor mcursor = null;
-
-        mcursor = this.getReadableDatabase().rawQuery("SELECT idUser FROM Usuarios where mail = ? and password = ?", new String[]{user, pass});
-
-
-        return mcursor;
-    }
-
-    //    public boolean updateIngredient(String name) {
-//        SQLiteDatabase DB = this.getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//        contentValues.put("name", name);
-//
-//        Cursor cursor = DB.rawQuery("SELECT * FROM Ingredientes where name = ?", new String[]{name});
-//        if (cursor.getCount() > 0) {
-//            long result = DB.update("Ingredientes", contentValues, "name = ?", new String[]{name});
-//            return result != -1;
-//        } else{
-//            return false;
-//        }
-//    }
 }
