@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -29,38 +30,26 @@ public class RecipeViewActivity extends AppCompatActivity {
     public static final String KEY_FOR_INTENT = "1";
     TextView tvTitle, tvTime, tvInstructions;
     ImageView imgRecipe;
+    OkHttpClient client;
+    Gson gson;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
-
-        tvTitle = findViewById(R.id.tvTitleRecipe);
-        tvTime = findViewById(R.id.tvTimeRecipe);
-        tvInstructions = findViewById(R.id.tvInstructionsRecipe);
-        imgRecipe = findViewById(R.id.imageView);
-        Intent intent = getIntent();
-        int id = intent.getIntExtra(KEY_FOR_INTENT, 0);
-
-        OkHttpClient client = new OkHttpClient();
-
-        Gson gson = new Gson();
-
-        String apiKey = "?&apiKey=6466dbfbe08c462299e8547928e2df0f";
-        String url = "https://api.spoonacular.com/recipes/"+id+"/information";
-
+        setup();
         Request request = new Request.Builder()
-                .url(url+apiKey)
+                .url(prepareUrl())
                 .build();
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 e.printStackTrace();
             }
-
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 if (response.isSuccessful()){
-                    String myResponse = response.body().string();
+                    String myResponse = Objects.requireNonNull(response.body()).string();
                     RecipeViewActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -70,9 +59,13 @@ public class RecipeViewActivity extends AppCompatActivity {
                                     .centerCrop()
                                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                                     .into(imgRecipe);
-                            int i = finalRecipe.getReadyInMinutes();
+                            setRecipeValues(finalRecipe);
+                        }
+
+                        private void setRecipeValues(FinalRecipe finalRecipe) {
+                            int preparationMinutes = finalRecipe.getReadyInMinutes();
                             String htmlText = html2text(finalRecipe.getInstructions());
-                            String time = Integer.toString(i);
+                            String time = Integer.toString(preparationMinutes);
                             time += " min";
                             tvTitle.setText(finalRecipe.getTitle());
                             tvInstructions.setText(htmlText);
@@ -86,5 +79,20 @@ public class RecipeViewActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private String prepareUrl() {
+        Intent intent = getIntent();
+        int id = intent.getIntExtra(KEY_FOR_INTENT, 0);
+        return "https://api.spoonacular.com/recipes/"+id+"/information?&apiKey=6466dbfbe08c462299e8547928e2df0f";
+    }
+
+    private void setup() {
+        tvTitle = findViewById(R.id.tvTitleRecipe);
+        tvTime = findViewById(R.id.tvTimeRecipe);
+        tvInstructions = findViewById(R.id.tvInstructionsRecipe);
+        imgRecipe = findViewById(R.id.imageView);
+        client = new OkHttpClient();
+        gson = new Gson();
     }
 }
