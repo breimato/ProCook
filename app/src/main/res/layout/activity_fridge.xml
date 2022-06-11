@@ -1,59 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFC529">
+
+    <TextView
+        android:id="@+id/textViewIngredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="53dp"
+        android:fontFamily="@font/ultra"
+        android:text="Ingredients"
+        android:textColor="#272d2f"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/ingredientName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/ingredientName"
         android:layout_width="370dp"
         android:layout_height="47dp"
+        android:layout_marginBottom="52dp"
         android:background="@drawable/et_style"
         android:backgroundTint="@color/white"
         android:hint="@string/type_ingredient"
         android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/insertButton"
+        app:layout_constraintBottom_toTopOf="@+id/listaIngredientes"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewIngredients" />
 
     <Button
         android:id="@+id/insertButton"
         android:layout_width="370dp"
         android:layout_height="47dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="13dp"
-        android:backgroundTint="#272d2F"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="9dp"
         android:background="@drawable/et_style"
+        android:backgroundTint="#272d2F"
         android:text="@string/insertar_ingrediente"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/listaIngredientes"
+        app:layout_constraintBottom_toTopOf="@+id/deleteButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ingredientName" />
+        app:layout_constraintTop_toBottomOf="@+id/listaIngredientes" />
 
     <Button
         android:id="@+id/deleteButton"
         android:layout_width="370dp"
         android:layout_height="47dp"
-        android:backgroundTint="#fe724c"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="53dp"
         android:background="@drawable/et_style"
+        android:backgroundTint="#fe724c"
         android:text="@string/eliminar_ingrediente"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listaIngredientes" />
+        app:layout_constraintTop_toBottomOf="@+id/insertButton" />
 
     <ListView
         android:id="@+id/listaIngredientes"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/deleteButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="60dp"
+        app:layout_constraintBottom_toTopOf="@+id/insertButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/insertButton" />
+        app:layout_constraintTop_toBottomOf="@+id/ingredientName" />
 </androidx.constraintlayout.widget.ConstraintLayout>
