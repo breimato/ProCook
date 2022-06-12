@@ -1,21 +1,27 @@
 package com.example.nuevotfg;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nuevotfg.DB.DBHelper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -29,12 +35,45 @@ public class LoginActivity extends AppCompatActivity {
     EditText inputMail, inputPass;
     DBHelper DB;
     FirebaseAuth mAuth;
+    CheckBox checkBox;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setup();
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage(R.string.terms_and_conditions)
+                .setTitle("Terms and Conditions");
 
+        btnLogin.setEnabled(false);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    alertDialogBuilder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            btnLogin.setEnabled(true);
+                            dialog.dismiss();
+                        }
+                    });
+                    alertDialogBuilder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            checkBox.setChecked(false);
+                        }
+                    });
+                    alertDialogBuilder.show();
+                }else{
+                    btnLogin.setEnabled(false);
+                }
+            }
+        });
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.registerButton);
         inputMail = findViewById(R.id.emailTextBox);
         inputPass = findViewById(R.id.passwordTextBox);
+        checkBox = findViewById(R.id.checkboxTerms);
     }
 
 //    private void register(){

@@ -101,5 +101,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public Cursor viewUserPass(String idUser) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        return DB.rawQuery("SELECT password FROM Usuarios where idUser = ?",new String[]{idUser});
+
+    }
+
     public Cursor checkUserAndPass(String user, String pass) throws SQLException {return this.getReadableDatabase().rawQuery("SELECT idUser FROM Usuarios where mail = ? and password = ?", new String[]{user, pass});}
 }
