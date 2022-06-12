@@ -102,17 +102,6 @@
         app:layout_constraintTop_toBottomOf="@+id/view"
         app:layout_constraintVertical_bias="0.518" />
 
-    <CheckBox
-        android:id="@+id/checkboxTerms"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Terms and Conditions"
-        app:layout_constraintBottom_toTopOf="@+id/loginButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.285"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordTextBox" />
-
     <View
         android:id="@+id/view"
         style="@style/Divider.Horizontal"

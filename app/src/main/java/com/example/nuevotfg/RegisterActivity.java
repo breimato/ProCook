@@ -1,14 +1,18 @@
 package com.example.nuevotfg;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nuevotfg.DB.DBHelper;
@@ -22,11 +26,44 @@ public class RegisterActivity extends AppCompatActivity {
     Button registerButton;
     FirebaseAuth mAuth;
     DBHelper DB;
+    CheckBox checkBox;
+    AlertDialog.Builder alertDialogBuilder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         setup();
+        registerButton.setEnabled(false);
+        alertDialogBuilder.setMessage(R.string.terms_and_conditions)
+                .setTitle("Terms and Conditions");
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    alertDialogBuilder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            registerButton.setEnabled(true);
+                            dialog.dismiss();
+                        }
+                    });
+                    alertDialogBuilder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            checkBox.setChecked(false);
+                        }
+                    });
+                    alertDialogBuilder.show();
+                }else{
+                    registerButton.setEnabled(false);
+                }
+            }
+        });
+
+
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,11 +111,13 @@ public class RegisterActivity extends AppCompatActivity {
     private void setup() {
         mAuth = FirebaseAuth.getInstance();
         DB = new DBHelper(this);
+        alertDialogBuilder = new AlertDialog.Builder(this);
         registerButton = findViewById(R.id.buttonRegisterView);
         emailText = findViewById(R.id.emailBox);
         passText = findViewById(R.id.passwordTextBox);
         nameText = findViewById(R.id.nameBox);
         lastnameText = findViewById(R.id.lastNameBox);
         phoneText = findViewById(R.id.phoneTextBox);
+        checkBox = findViewById(R.id.checkboxTerms);
     }
 }

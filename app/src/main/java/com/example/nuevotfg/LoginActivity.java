@@ -42,38 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setup();
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage(R.string.terms_and_conditions)
-                .setTitle("Terms and Conditions");
-
-        btnLogin.setEnabled(false);
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    alertDialogBuilder.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            btnLogin.setEnabled(true);
-                            dialog.dismiss();
-                        }
-                    });
-                    alertDialogBuilder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                            checkBox.setChecked(false);
-                        }
-                    });
-                    alertDialogBuilder.show();
-                }else{
-                    btnLogin.setEnabled(false);
-                }
-            }
-        });
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
