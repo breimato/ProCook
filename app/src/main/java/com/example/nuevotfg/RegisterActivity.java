@@ -41,20 +41,20 @@ public class RegisterActivity extends AppCompatActivity {
         String pass = passText.getText().toString();
 
         if (TextUtils.isEmpty(email)) {
-            emailText.setError("El email no puede estar vacío");
+            emailText.setError("Email cannot be empty");
             emailText.requestFocus();
         }else if (TextUtils.isEmpty(pass)){
-            passText.setError("La contraseña no puede estar vacía");
+            passText.setError("Password cannot be empty");
             passText.requestFocus();
         }else{
             mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
-                        Toast.makeText(RegisterActivity.this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "User signed up", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     }else{
-                        Toast.makeText(RegisterActivity.this, "Hubo un fallo a la hora de registrar el usuario" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Sign up error", Toast.LENGTH_SHORT).show();
                     }
 
                 }

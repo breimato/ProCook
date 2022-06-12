@@ -96,10 +96,10 @@ public class LoginActivity extends AppCompatActivity {
         String pass = inputPass.getText().toString();
 
         if (TextUtils.isEmpty(email)) {
-            inputMail.setError("El email no puede estar vacío");
+            inputMail.setError("Email cannot be empty");
             inputMail.requestFocus();
         } else if (TextUtils.isEmpty(pass)) {
-            inputPass.setError("La contraseña no puede estar vacía");
+            inputPass.setError("Password cannot be empty");
             inputPass.requestFocus();
         } else {
             mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -132,62 +132,5 @@ public class LoginActivity extends AppCompatActivity {
         inputPass = findViewById(R.id.passwordTextBox);
         checkBox = findViewById(R.id.checkboxTerms);
     }
-
-//    private void register(){
-//        String email = inputMail.getText().toString();
-//        String pass = inputPass.getText().toString();
-//        if (isEmail(inputMail) && isPass(inputPass)) {
-//            Toast.makeText(LoginActivity.this, "Registro Correcto", Toast.LENGTH_SHORT).show();
-//            emails.add(email);
-//            contraseñas.add(pass);
-//            cambiarActivity(email);
-//        } else {
-//            showAlert("Sintaxis incorrecta del email o contraseña");
-//        }
-//    }
-
-
-//    private void loginButton(){
-//        String email = inputMail.getText().toString();
-//        String pass = inputPass.getText().toString();
-//
-//        if (isEmail(inputMail) && isPass(inputPass)) {
-//            for (int i = 0; i < emails.size(); i++) {
-//                if (email.equals(emails.get(i)) && pass.equals(contraseñas.get(i))) {
-//                    Toast.makeText(LoginActivity.this, "LoginActivity Correcto", Toast.LENGTH_SHORT).show();
-//                    changeActivity();
-//                } else {
-//                    if (i == emails.size() - 1) {
-//                        Toast.makeText(LoginActivity.this, "Usuario no registrado", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            }
-//        } else {
-//            showAlert("Sintaxis incorrecta del email o contraseña");
-//        }
-//    }
-//
-//    private static boolean isEmail(EditText text) {
-//        CharSequence email = text.getText().toString();
-//        return (!TextUtils.isEmpty(email) &&
-//                Patterns.EMAIL_ADDRESS.matcher(email).matches());
-//    }
-//
-//    private static boolean isPass(EditText text) {
-//        String pass = text.getText().toString();
-//        return (!TextUtils.isEmpty(pass));
-//    }
-//
-//    private void showAlert(String mensaje) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-//        builder.setMessage(mensaje);
-//        builder.setTitle("Error");
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-//    }
-//    private void changeActivity() {
-//        Intent mainActivity = new Intent(this, RegisterActivity.class);
-//        startActivity(mainActivity);
-//    }
 }
 

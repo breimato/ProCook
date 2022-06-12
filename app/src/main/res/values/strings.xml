@@ -9,7 +9,7 @@
     <string name="underline_button">
         <u>Register now!</u>
     </string>
-    <string name="register">Registrarse</string>
+    <string name="register">Sign up</string>
     <string name="lastnameHint">Type your lastname</string>
     <string name="nameHint">Type your name</string>
     <string name="emailHint">Type your email</string>

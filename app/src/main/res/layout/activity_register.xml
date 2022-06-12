@@ -13,7 +13,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="34dp"
         android:fontFamily="@font/ultra"
-        android:text="Registro"
+        android:text="Register"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="35dp"
